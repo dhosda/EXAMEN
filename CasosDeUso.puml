@@ -1,0 +1,59 @@
+@startuml CasosDeUso
+
+left to right direction
+skinparam shadowing false
+skinparam actorStyle stickman
+
+actor Aspirante
+actor Reclutador
+actor "Servicio de Correo Externo (API)" as API
+
+rectangle "TalentTrack" {
+
+  usecase "Registrarse" as UC1
+  usecase "Buscar vacantes" as UC2
+  usecase "Postularse a vacante" as UC3
+
+  usecase "Ingresar datos personales" as UC4
+  usecase "Registrar nivel de estudios" as UC5
+  usecase "Cargar curriculum PDF" as UC6
+  usecase "Buscar vacante" as UC7
+
+  usecase "Gestionar vacantes" as UC8
+  usecase "Evaluar postulaciones" as UC9
+  usecase "Agendar entrevista tecnica" as UC10
+  usecase "Registrar calificacion comentarios" as UC11
+  usecase "Actualizar estado de postulacion" as UC12
+
+  usecase "Registrar vacante" as UC13
+  usecase "Modificar vacante" as UC14
+  usecase "Dar de baja vacante" as UC15
+
+  usecase "Enviar notificacion a aspirante" as UC16
+}
+
+Aspirante --> UC1
+Aspirante --> UC2
+Aspirante --> UC3
+
+Reclutador --> UC8
+Reclutador --> UC9
+Reclutador --> UC10
+Reclutador --> UC11
+Reclutador --> UC12
+
+UC1 .> UC4 : include
+UC1 .> UC5 : include
+UC1 .> UC6 : include
+
+UC3 .> UC7 : include
+
+UC8 .> UC13 : include
+UC8 .> UC14 : include
+UC8 .> UC15 : include
+
+UC12 .> UC16 : include
+
+API <-- UC16
+
+@enduml

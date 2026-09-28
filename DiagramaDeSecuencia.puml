@@ -1,0 +1,40 @@
+@startuml
+
+title Diagrama de Secuencia - Escenario A: Aspirante realiza una postulacion exitosa a una vacante
+
+actor Aspirante
+participant "Interfaz de Usuario" as IU
+participant "Controlador de Postulaciones" as CP
+database "Base de Datos" as BD
+participant "Servicio de Correo Externo (API)" as API
+
+Aspirante -> IU : 1. Selecciona vacante
+
+activate IU
+IU -> CP : 2. Solicita postulacion\n(vacante, datos)
+deactivate IU
+
+activate CP
+CP -> BD : 3. Verifica vacante y aspirante
+
+activate BD
+BD --> CP : 4. Devuelve informacion valida
+deactivate BD
+
+CP -> BD : 5. Registra postulacion
+
+activate BD
+BD --> CP : 6. Postulacion registrada
+deactivate BD
+
+CP -> API : 7. Solicita envio de notificacion\n(estado: "Postulado")
+
+activate API
+API --> CP : 8. Envia correo (confirmacion)
+deactivate API
+
+CP --> IU : 9. Confirma postulacion exitosa
+deactivate CP
+
+activate IU
+IU --> Aspirante : 10. Muestra 
